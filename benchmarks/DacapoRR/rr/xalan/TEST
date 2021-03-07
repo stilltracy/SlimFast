@@ -1,0 +1,35 @@
+#!/bin/bash
+
+
+echo "PREP"
+rm -rf scratch
+mkdir scratch
+cp ../../dat/xalan.zip scratch
+cd scratch
+unzip xalan.zip
+cd ..
+echo "PREP DONE"
+
+
+CLASSPATH=../../jar/xalan-benchmark.jar:../../jar/xalan.jar:../../jar/xercesImpl.jar:../../jar/xml-apis.jar:../../jar/serializer.jar
+
+i=0
+args=""
+t=""
+for arg in "$@"
+do
+	if [ "$i" = "0" ]
+	then
+		t="$arg"
+	else
+		args="$args $arg"
+	fi
+	i=`expr $i + 1`
+done
+
+echo $t
+
+rrrun -classpath=.:${CLASSPATH} -shadowThread="-.*" \
+    -maxTid=30 \
+    $args Main $t
+

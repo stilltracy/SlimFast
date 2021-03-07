@@ -1,0 +1,26 @@
+
+echo "PREP"
+rm -rf scratch
+mkdir scratch
+cp ../../dat/tomcat.zip scratch
+cd scratch
+unzip tomcat.zip
+cd ..
+echo "PREP DONE"
+
+echo "COMPILE"
+
+CLASSPATH=../../jar/dacapo-tomcat.jar:../../jar/bootstrap.jar:../../jar/tomcat-juli.jar:../../jar/commons-daemon.jar:../../jar/commons-httpclient.jar:../../jar/commons-logging.jar:../../jar/commons-codec.jar
+
+echo Compile Main
+javac  -target 1.6 -source 1.6 -classpath $CLASSPATH Main.java 
+
+echo Compile Patch
+
+javac   -target 1.6 -source 1.6  -d scratch/lib -classpath scratch/lib/tomcat-coyote.jar:../../jar/dacapo-tomcat.jar:../../jar/bootstrap.jar:../../jar/tomcat-juli.jar:../../jar/commons-daemon.jar:../../jar/commons-httpclient.jar:../../jar/commons-logging.jar:../../jar/commons-codec.jar:  org/apache/tomcat/util/*.java org/apache/tomcat/util/net/NioEndpoint.java
+
+echo Adding patch to Jar scratch/lib/tomcat-coyote.jar
+cd scratch/lib
+jar uf tomcat-coyote.jar org
+cd -
+

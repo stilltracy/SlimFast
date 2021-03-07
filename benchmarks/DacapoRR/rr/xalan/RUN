@@ -1,0 +1,5 @@
+#!/bin/bash
+
+CLASSPATH=../../jar/xalan-benchmark.jar:../../jar/xalan.jar:../../jar/xercesImpl.jar:../../jar/xml-apis.jar:../../jar/serializer.jar
+
+java -classpath .:${CLASSPATH} Main

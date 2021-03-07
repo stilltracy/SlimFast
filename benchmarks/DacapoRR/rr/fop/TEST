@@ -1,0 +1,36 @@
+#!/bin/bash
+
+
+echo "PREP"
+rm -rf scratch
+mkdir scratch
+cp ../../dat/fop.zip scratch
+cd scratch
+unzip fop.zip
+cd ..
+echo "PREP DONE"
+
+i=0
+args=""
+t=""
+for arg in "$@"
+do
+        if [ "$i" = "0" ]
+        then
+                t="$arg"
+        else
+                args="$args $arg"
+        fi
+        i=`expr $i + 1`
+done
+
+echo $t
+
+
+rrrun -classpath=.:classes \
+    -shadowThread="-.*" \
+    -classes="-org/apache/fop/fonts/CodePointMapping" \
+    -classes="-org/apache/fop/text/linebreak/LineBreakUtils" \
+    $args Main
+
+# -classes because "Method To Large" errors

@@ -1,0 +1,11 @@
+cd crypt
+make clean
+cd ../lufact
+make clean
+cd ../series
+make clean
+cd ../sor
+make clean
+cd ../sparsematmult
+make clean
+cd ../

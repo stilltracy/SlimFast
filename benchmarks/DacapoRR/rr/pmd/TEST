@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "PREP"
+rm -rf scratch
+mkdir scratch
+cp ../../dat/pmd.zip scratch
+cd scratch
+unzip pmd.zip
+cd ..
+echo "PREP DONE"
+
+
+CLASSPATH=../../jar/pmd-4.2.5.jar:../../jar/jaxen-1.1.1.jar:../../jar/asm-3.1.jar:../../jar/junit-3.8.1.jar:../../jar/xercesImpl.jar:../../jar/xml-apis.jar:./ant-1.7.0.jar
+
+i=0
+args=""
+t=""
+for arg in "$@"
+do
+        if [ "$i" = "0" ]
+        then
+                t="$arg"
+        else
+                args="$args $arg"
+        fi
+        i=`expr $i + 1`
+done
+
+echo $t
+
+rrrun \
+    -maxTid=26 \
+    -shadowThread="-.*" -classpath=.:${CLASSPATH} $args Main

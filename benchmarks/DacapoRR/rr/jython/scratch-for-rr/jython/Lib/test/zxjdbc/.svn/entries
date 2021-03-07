@@ -1,0 +1,77 @@
+10
+
+dir
+0
+http://gforge.soe.ucsc.edu/svn/sqt/proj/JavaWorkspace/Benchmarks/DacapoRR/rr/jython/scratch-for-rr/jython/Lib/test/zxjdbc
+http://gforge.soe.ucsc.edu/svn/sqt
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b6c514ba-65e5-0310-acaf-8a721704f0d3
+
+dbextstest.py
+file
+
+
+
+add
+
+runner.py
+file
+
+
+
+add
+
+zxtest.py
+file
+
+
+
+add
+
+sptest.py
+file
+
+
+
+add
+
+jndi.py
+file
+
+
+
+add
+
+test_zxjdbc_dbapi20.py
+file
+
+
+
+add
+
+test.xml
+file
+
+
+
+add
+

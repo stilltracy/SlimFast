@@ -1,0 +1,49 @@
+10
+
+dir
+0
+http://gforge.soe.ucsc.edu/svn/sqt/proj/JavaWorkspace/Benchmarks/DacapoRR/rr/jython/scratch-for-rr/jython/Lib/test/test_metaclass_support
+http://gforge.soe.ucsc.edu/svn/sqt
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b6c514ba-65e5-0310-acaf-8a721704f0d3
+
+metaclass.py
+file
+
+
+
+add
+
+__init__.py
+file
+
+
+
+add
+
+simpleclass.py
+file
+
+
+
+add
+

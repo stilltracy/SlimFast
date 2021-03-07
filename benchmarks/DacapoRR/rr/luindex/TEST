@@ -1,0 +1,32 @@
+#!/bin/bash
+
+echo "PREP"
+rm -rf scratch
+mkdir scratch
+cp ../../dat/luindex.zip scratch
+cd scratch
+unzip luindex.zip
+cd ..
+echo "PREP DONE"
+
+CLASSPATH=../../jar/luindex.jar:../../jar/lucene-core-2.4.jar:../../jar/lucene-demos-2.4.jar
+
+i=0
+args=""
+t=""
+for arg in "$@"
+do
+        if [ "$i" = "0" ]
+        then
+                t="$arg"
+        else
+                args="$args $arg"
+        fi
+        i=`expr $i + 1`
+done
+
+echo $t
+
+
+rrrun -classpath=.:$CLASSPATH $args Main
+

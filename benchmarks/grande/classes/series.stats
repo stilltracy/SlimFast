@@ -1,0 +1,69 @@
+Heap size: 2058878976
+Maximum memory: 61084270592
+Thread 0: [RUNNING,Lock1180884603, Owner: [0],0,0]
+Thread 1: [EXITED,Lock83657047, Owner: [1],0,0]
+Thread 2: [EXITED,Lock1569683791, Owner: [2],0,0]
+Thread 3: [EXITED,Lock1986355589, Owner: [3],0,0]
+Thread 4: [EXITED,Lock2045091708, Owner: [4],0,0]
+Thread 5: [EXITED,Lock1380566121, Owner: [5],0,0]
+Thread 6: [EXITED,Lock1761473459, Owner: [6],0,0]
+Thread 7: [EXITED,Lock2022351518, Owner: [7],0,0]
+Total: 1788
+Running: 1783 (0.9972035794183445)
+Running: 5 (0.002796420581655481)
+Running: 0 (0.0)
+
+
+
+Total: 1444
+Running: 595 (0.4120498614958449)
+Running: 808 (0.5595567867036011)
+Running: 41 (0.028393351800554016)
+
+
+
+Total: 1448
+Running: 614 (0.4240331491712707)
+Running: 793 (0.5476519337016574)
+Running: 41 (0.028314917127071824)
+
+
+
+Total: 1450
+Running: 612 (0.4220689655172414)
+Running: 794 (0.5475862068965517)
+Running: 44 (0.030344827586206897)
+
+
+
+Total: 1438
+Running: 608 (0.4228094575799722)
+Running: 779 (0.5417246175243393)
+Running: 51 (0.03546592489568846)
+
+
+
+Total: 1444
+Running: 625 (0.4328254847645429)
+Running: 778 (0.538781163434903)
+Running: 41 (0.028393351800554016)
+
+
+
+Total: 1436
+Running: 615 (0.42827298050139273)
+Running: 773 (0.5383008356545961)
+Running: 48 (0.033426183844011144)
+
+
+
+Total: 1453
+Running: 644 (0.44322092222986925)
+Running: 760 (0.5230557467309016)
+Running: 49 (0.03372333103922918)
+
+
+
+Deadlocks detected: 0
+Deadlocks broken: 0
+Waiting state releases: 15

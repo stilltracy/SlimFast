@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "PREP"
+rm -rf scratch
+mkdir scratch
+echo "PREP DONE"
+
+CLASSPATH=.:./src/:../../jar/derbyTesting.jar:../../jar/junit-3.8.1.jar:../../jar/h2-1.2.121.jar:../../jar/tpcc.jar
+
+rrrun -classpath=.:${CLASSPATH} -shadowThread="-.*" $* \
+  -classes="-.*org/h2/util/RandomUtils.*" \
+  Main ${ARGS}

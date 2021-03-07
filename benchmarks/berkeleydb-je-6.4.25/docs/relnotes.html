@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+  <title>Berkeley DB Java Edition Release Notes</title>
+</head>
+
+<body>
+
+<div class="docMain">
+<center>
+<h1>Oracle Berkeley DB Java Edition 12c R1<br>
+Release Notes</h1>
+</center>
+
+<!-- Note: RELEASE_VERSION and DATE are set by ant -->
+<p class="releaseInfo">Release 6.4.25, 2015-12-07 07:55:24 UTC</p>
+
+<h2><a name="overview">Overview</a></h2>
+<p>
+Berkeley DB Java Edition (JE) is a 100% pure Java embedded, transactional data
+store. It supplies a key/object data model with indexing, full transactional
+ACID support, POJO APIs and High Availability/Replication.
+<p>
+Note that in JE 6.0 and later, the Java compatibility requirement for JE is
+Java SE 7 and the open source license is the GNU AFFERO GENERAL PUBLIC LICENSE.
+<p>
+JE is compatible with Java SE 7 and later, and has been tested and certified
+against Oracle JDK 8u45 and IBM J9 7.0. We encourage you to upgrade to the
+latest Java releases to take advantage of the latest bug fixes and performance
+improvements.
+<p>
+Be sure to see the <a href="changelog.html">change log</a> for information
+about upgrading from earlier releases.
+<p>
+This release contains a number of changes, including:
+<ol>
+    <li>
+    Added an off-heap cache capability. An off-heap cache can be used to
+    utilize large memories more efficiently than when using the same memory
+    for the file system cache, while avoiding the Java GC overheap associated
+    with large Java heaps. See the change log for a description of the current
+    limitations of the off-heap cache, and a list of the API additions.  See
+    the EnvironmentMutableConfig.setOffHeapCacheSize javadoc for information
+    on how to enable the cache and its impact on performance.
+    [#23889]
+    </li>
+    <li>
+    Several improvements were made to DiskOrderedCursor performance and
+    behavior. Read IO is reduced, memory management behavior is improved,
+    there is no longer a potential data lag to the last checkpoint, and
+    multiple databases may now be scanned at once.  These improvements also
+    apply to Database.count, which uses the same internal scanning mechanism
+    as DiskOrderedCursor.
+    [#24291] [#24171] [#24192] [#24226] [#24270]
+    </li>
+    <li>
+    Several important bugs have been fixed.
+    </li>
+</ol>
+For the complete and detailed list of changes, see
+<a href="changelog.html">the change log page</a>.<br>
+</p>
+<font size="1">Copyright (c) 2002, 2015 Oracle and/or its affiliates.  All rights reserved.</font>
+</div>
+<!-- end docMain -->
+</body>
+</html>

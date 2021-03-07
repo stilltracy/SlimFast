@@ -1,0 +1,7 @@
+#!/bin/bash
+
+
+CLASSPATH=../../jar/luindex.jar:../../jar/lucene-core-2.4.jar:../../jar/lucene-demos-2.4.jar
+
+java -classpath .:$CLASSPATH Main
+

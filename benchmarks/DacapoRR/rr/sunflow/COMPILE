@@ -1,0 +1,4 @@
+
+CLASSPATH=../../jar/sunflow-0.07.2.jar:../../jar/janino-2.5.12.jar
+
+javac  -target 1.6 -source 1.6 -classpath $CLASSPATH Main.java

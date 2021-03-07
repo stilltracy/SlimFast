@@ -1,0 +1,11 @@
+cd crypt
+make
+cd ../lufact
+make
+cd ../series
+make
+cd ../sor
+make
+cd ../sparsematmult
+make
+cd ../

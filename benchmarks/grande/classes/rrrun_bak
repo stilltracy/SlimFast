@@ -1,0 +1,2 @@
+#!/bin/bash
+java -javaagent:../../../build/jar/rragent.jar -Xmx64g -Xms4g -noverify -Xbootclasspath/p:../../../classes:../../../jars/java-cup-11a.jar:../../../jars/jgrapht-jdk1.6.jar:../../../classes/rr/simple:../../../classes/tools:../../../jars/JFlex.jar rr.RRMain $*

@@ -1,0 +1,42 @@
+#!/bin/bash
+
+
+echo "PREP"
+rm -rf scratch
+mkdir scratch
+cp ../../dat/eclipse.zip scratch
+cd scratch
+unzip eclipse.zip
+cd ..
+
+CLASSPATH=../../jar/eclipse.jar
+java -classpath .:${CLASSPATH} MainCreate
+
+echo "PREP DONE"
+i=0
+args=""
+t=""
+for arg in "$@"
+do
+        if [ "$i" = "0" ]
+        then
+                t="$arg"
+        else
+                args="$args $arg"
+        fi
+        i=`expr $i + 1`
+done
+
+echo $t
+
+
+echo "RR RUN"
+rrrun -maxTid=60 -classpath=.:${CLASSPATH} -shadowThread="-.*" \
+    -fields="-org.w3c.dom.DOMException.code.*" \
+    -nojoin \
+    $args Main
+
+# -classes:  core.internal -> won't start w/ internal error
+#            org/w3c/dom   -> loaded by bootclass loader...
+# 
+

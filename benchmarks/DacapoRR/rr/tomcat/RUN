@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+CLASSPATH=../../jar/dacapo-tomcat.jar:../../jar/bootstrap.jar:../../jar/tomcat-juli.jar:../../jar/commons-daemon.jar:../../jar/commons-httpclient.jar:../../jar/commons-logging.jar:../../jar/commons-codec.jar:
+
+java -classpath .:${CLASSPATH}:classes Main $*

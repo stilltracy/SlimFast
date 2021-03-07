@@ -1,0 +1,30 @@
+
+*** BUILDING THE CODE ***
+
+To build all the BDB code (including the benchmark) run, from the
+benchmarks/berkeleydb-je-6.4.25/ directory:
+
+  ant
+
+This compiles all the code into the
+benchmarks/berkeleydb-je-6.4.25/build/classes/ directory. The benchmark code is
+in benchmarks/berkeleydb-je-6.4.25/slimfast-benchmark/RandomReads.java.
+
+
+*** RUNNING THE BENCHMARK ***
+
+First we initialize a new database with 1,000 keys, where each key is an integer
+from 0 to 999 and has a value of 64KB of (empty) data. The database will be
+placed in the db1k-64kb directory.
+
+  mkdir db1k-64kb
+  java -cp $SLIMFAST_ROOT/benchmarks/berkeleydb-je-6.4.25/build/classes RandomReads insert db1k-64kb 1000 65536
+
+Now we'll perform 5,000 sequential reads from the database we created before. The
+last parameter of 1000 indicates that random keys should be in the interval
+[0,1000) since those are the keys in our database.
+
+  java -cp $SLIMFAST_ROOT/benchmarks/berkeleydb-je-6.4.25/build/classes RandomReads randomread db1k-64kb 5000 1000
+
+In my experiments, it takes FT about 20 minutes to complete one run. SF takes a
+little under 10 minutes (about 2x faster).

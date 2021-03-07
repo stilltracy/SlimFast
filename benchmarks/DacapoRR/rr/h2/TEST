@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "PREP"
+rm -rf scratch
+mkdir scratch
+echo "PREP DONE"
+
+CLASSPATH=.:./src/:../../jar/derbyTesting.jar:../../jar/junit-3.8.1.jar:../../jar/h2-1.2.121.jar:../../jar/tpcc.jar
+
+i=0
+args=""
+t=""
+for arg in "$@"
+do
+        if [ "$i" = "0" ]
+        then
+                t="$arg"
+        else
+                args="$args $arg"
+        fi
+        i=`expr $i + 1`
+done
+
+echo $t
+
+
+rrrun -classpath=.:${CLASSPATH} -shadowThread="-.*" \
+    -maxTid=30 \
+    $args \
+    Main ${ARGS}
+
+
+

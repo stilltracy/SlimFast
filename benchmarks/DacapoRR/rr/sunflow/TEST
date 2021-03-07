@@ -1,0 +1,37 @@
+#!/bin/bash
+
+
+
+echo "PREP"
+rm -rf scratch
+mkdir scratch
+cp ../../dat/lusearch.zip scratch
+cd scratch
+unzip lusearch.zip
+cd ..
+echo "PREP DONE"
+
+CLASSPATH=../../jar/sunflow-0.07.2.jar:../../jar/janino-2.5.12.jar
+
+i=0
+args=""
+t=""
+for arg in "$@"
+do
+        if [ "$i" = "0" ]
+        then
+                t="$arg"
+        else
+                args="$args $arg"
+        fi
+        i=`expr $i + 1`
+done
+
+echo $t
+
+rrrun -classpath=.:$CLASSPATH \
+    -maxTid=26 \
+    -classes="-org/sunflow/core/tesselatable/Teapot"  $args Main $t
+
+# Teapot: Method Code too large...
+

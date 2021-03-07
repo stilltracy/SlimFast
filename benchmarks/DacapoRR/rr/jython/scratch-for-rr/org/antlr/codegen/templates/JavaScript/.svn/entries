@@ -1,0 +1,56 @@
+10
+
+dir
+0
+http://gforge.soe.ucsc.edu/svn/sqt/proj/JavaWorkspace/Benchmarks/DacapoRR/rr/jython/scratch-for-rr/org/antlr/codegen/templates/JavaScript
+http://gforge.soe.ucsc.edu/svn/sqt
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b6c514ba-65e5-0310-acaf-8a721704f0d3
+
+ASTParser.stg
+file
+
+
+
+add
+
+ASTTreeParser.stg
+file
+
+
+
+add
+
+JavaScript.stg
+file
+
+
+
+add
+
+AST.stg
+file
+
+
+
+add
+

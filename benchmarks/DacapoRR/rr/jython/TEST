@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "PREP"
+rm -rf scratch
+tar -xzf scratch-for-rr.tgz
+cp -r  scratch-for-rr scratch
+rm -rf scratch/jython/scratch
+echo "PREP DONE"
+
+CLASSPATH=../../jar/jython.jar:../../jar/antlr-3.1.3.jar:../../jar/asm-3.1.jar:../../jar/asm-commons-3.1.jar:../../jar/constantine-0.4.jar:../../jar/jna-posix.jar:../../jar/jna.jar
+
+i=0
+args=""
+t=""
+for arg in "$@"
+do
+        if [ "$i" = "0" ]
+        then
+                t="$arg"
+        else
+                args="$args $arg"
+        fi
+        i=`expr $i + 1`
+done
+
+echo $t
+
+
+rrrun \
+    -classes="-org/python/antlr/PythonParser"  \
+    -classpath=.:scratch:classes $args -shadowThread="-.*"  Main
+
+# PythonParser: code size too large...

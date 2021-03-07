@@ -1,0 +1,42 @@
+benchmark tomcat
+  class org.dacapo.harness.Tomcat
+  thread-model per_cpu
+  jar "dacapo-tomcat.jar"
+  libs "bootstrap.jar","tomcat-juli.jar","commons-daemon.jar","commons-httpclient.jar",
+  "commons-logging.jar","commons-codec.jar";
+
+
+size small args "4"
+  thread-limit 4
+  output stdout digest 0x6747a7ac3ac3ac6d61eb353e1d9b0f3181e90dda,
+         stderr digest 0xda39a3ee5e6b4b0d3255bfef95601890afd80709,
+         "client.0.log" exists;     // Actually one for each client thread
+
+size default args "64"
+  thread-limit 64
+  output stdout digest 0x6747a7ac3ac3ac6d61eb353e1d9b0f3181e90dda,
+         stderr digest 0xda39a3ee5e6b4b0d3255bfef95601890afd80709,
+         "client.0.log" exists;     // Actually one for each client thread
+
+size large args "512"
+  thread-limit 512
+  output stdout digest 0x6747a7ac3ac3ac6d61eb353e1d9b0f3181e90dda,
+         stderr digest 0xda39a3ee5e6b4b0d3255bfef95601890afd80709,
+         "client.0.log" exists;     // Actually one for each client thread
+
+size huge args "4096"
+  thread-limit 4096
+  output stdout digest 0x6747a7ac3ac3ac6d61eb353e1d9b0f3181e90dda,
+         stderr digest 0xda39a3ee5e6b4b0d3255bfef95601890afd80709,
+         "client.0.log" exists;     // Actually one for each client thread
+
+description
+  short		"Tomcat servlet container",
+  long		"Runs the tomcat sample web applications",
+  copyright	"Copyright (c) Apache Software Foundation",
+  author	"Apache Software Foundation",
+  license	"Apache License, Version 2.0",
+  url		"http://tomcat.apache.org",
+  version	"6.0.20",
+  threads	"Expliclitly multi-threaded workload, scaled to available processors.",
+  repeats	"Each iteration starts the tomcat server, creates the client threads and waits for them to perform their tasks.";

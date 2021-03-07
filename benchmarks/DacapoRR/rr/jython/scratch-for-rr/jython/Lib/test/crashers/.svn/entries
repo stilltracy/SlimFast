@@ -1,0 +1,119 @@
+10
+
+dir
+0
+http://gforge.soe.ucsc.edu/svn/sqt/proj/JavaWorkspace/Benchmarks/DacapoRR/rr/jython/scratch-for-rr/jython/Lib/test/crashers
+http://gforge.soe.ucsc.edu/svn/sqt
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b6c514ba-65e5-0310-acaf-8a721704f0d3
+
+loosing_dict_ref.py
+file
+
+
+
+add
+
+infinite_rec_1.py
+file
+
+
+
+add
+
+nasty_eq_vs_dict.py
+file
+
+
+
+add
+
+borrowed_ref_1.py
+file
+
+
+
+add
+
+infinite_rec_2.py
+file
+
+
+
+add
+
+borrowed_ref_2.py
+file
+
+
+
+add
+
+infinite_rec_4.py
+file
+
+
+
+add
+
+infinite_rec_5.py
+file
+
+
+
+add
+
+recursive_call.py
+file
+
+
+
+add
+
+bogus_code_obj.py
+file
+
+
+
+add
+
+gc_inspection.py
+file
+
+
+
+add
+
+README
+file
+
+
+
+add
+
+recursion_limit_too_high.py
+file
+
+
+
+add
+

@@ -1,0 +1,2 @@
+javac  -target 1.6 -source 1.6 -classpath ../../jar/eclipse.jar  Main.java
+javac  -target 1.6 -source 1.6 -classpath ../../jar/eclipse.jar  MainCreate.java

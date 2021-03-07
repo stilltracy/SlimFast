@@ -1,0 +1,3 @@
+CLASSPATH=../../jar/derbyTesting.jar:../../jar/junit-3.8.1.jar:../../jar/h2-1.2.121.jar:../../jar/tpcc.jar
+javac -source 1.6 -target 1.6 -classpath .:${CLASSPATH}:src/ Main.java
+

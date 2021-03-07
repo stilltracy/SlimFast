@@ -1,0 +1,8 @@
+cd moldyn
+make
+cd ../montecarlo
+make
+cd ../raytrace
+make
+cd ../
+

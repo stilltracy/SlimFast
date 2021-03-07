@@ -1,0 +1,44 @@
+Thread 1 attempting to acquire a lock
+Lock2027808014, Owner: [0], Reads: 0, Writes: 1, Pattern: ATOMIC_WRITE
+ATOMIC_WRITE
+IDEARunner.java:397
+
+Thread 1 attempting to acquire a lock
+Lock615147071, Owner: [0], Reads: 9, Writes: 2, Pattern: WRITE_ONCE
+WRITE_ONCE
+JGFCryptBench.java:97
+
+Thread 2 attempting to acquire a lock
+Lock219230684, Owner: [0], Reads: 0, Writes: 1, Pattern: ATOMIC_WRITE
+ATOMIC_WRITE
+IDEARunner.java:396
+
+Thread 2 attempting to acquire a lock
+Lock1675651383, Owner: [0], Reads: 0, Writes: 2999999, Pattern: ATOMIC_WRITE
+ATOMIC_WRITE
+IDEATest.java:164
+
+Thread 2 attempting to acquire a lock
+Lock1328986395, Owner: [0], Reads: 0, Writes: 1, Pattern: ATOMIC_WRITE
+ATOMIC_WRITE
+IDEARunner.java:399
+
+Thread 2 attempting to acquire a lock
+Lock840137015, Owner: [0], Reads: 140, Writes: 103, Pattern: NONE
+NONE
+IDEATest.java:187
+
+Thread 8 attempting to acquire a lock
+Lock1672472081, Owner: [0], Reads: 0, Writes: 51, Pattern: ATOMIC_WRITE
+ATOMIC_WRITE
+IDEATest.java:247
+
+Thread 8 attempting to acquire a lock
+Lock522593820, Owner: [0], Reads: 0, Writes: 1, Pattern: ATOMIC_WRITE
+ATOMIC_WRITE
+IDEARunner.java:398
+
+Thread 9 attempting to acquire a lock
+Lock189087894, Owner: [8], Reads: 0, Writes: 247, Pattern: ATOMIC_WRITE
+ATOMIC_WRITE
+IDEARunner.java:542

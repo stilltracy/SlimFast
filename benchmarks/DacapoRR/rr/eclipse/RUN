@@ -1,0 +1,5 @@
+#!/bin/bash
+
+CLASSPATH=../../jar/eclipse.jar
+java -classpath .:${CLASSPATH} MainCreate
+java -classpath .:${CLASSPATH} Main

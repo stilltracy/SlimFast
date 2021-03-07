@@ -1,0 +1,282 @@
+dacapo-9.12-bach  RELEASE NOTES  2009-12-23
+
+This is the second major release of the DaCapo benchmark suite.  
+
+These notes are structured as follows:
+
+    1. Overview
+    2. Usage
+    3. Changes
+    4. Known problems and limitations
+    5. Contributions and Acknowledgements
+
+
+1. Overview
+-----------
+
+The DaCapo benchmark suite is slated to be updated every few years.
+The 9.12 release is the first major update of the suite, and is
+strictly incompatible with previous releases: new benchmarks have been
+added, old benchmarks have been removed, all other benchmarks have
+been substantially updated and the inputs have changed for every
+program. It is for this reason that in any published use of the suite,
+the version of the suite must be explicitly stated.
+
+The release sees the retirement of a number of single-threaded
+benchmarks (antlr, bloat and chart), the replacement of hsqldb by
+h2, the addition of six completely new benchmarks, and the upgrade
+of all other benchmarks to reflect the current release state of the
+applications from which the benchmarks were derived. These changes are
+consistent with the original goals of the DaCapo project, which
+include the desire for the suite to remain relevant and reflect the
+current state of deployed Java applications.
+
+Each of these benchmarks is tested for both performance and
+correctness nightly. Results are available here:
+
+    o performance:  http://dacapo.anu.edu.au/regression/perf/head.html
+    o sanity:  http://dacapo.anu.edu.au/regression/sanity/latest/
+
+
+2. Usage
+--------
+
+2.1 Downloading
+
+  o Download the binary jar and/or source zip from:
+      https://sourceforge.net/projects/dacapobench/files/
+
+  o Access the source from subversion via
+      svn co https://dacapobench.svn.sourceforge.net/svnroot/dacapobench/benchmarks/trunk dacapobench
+
+2.2 Running
+
+  o It is essential that you read and observe the usage guidelines
+    that appear in README.txt
+
+  o Run a benchmark:
+      java -jar <dacapo-jar-name>.jar <benchmark>
+
+  o For usage information, run with no arguments.
+  
+
+2.3 Building
+
+  o You must have a working, recent version of ant installed. Change
+    to the benchmarks directory and then run:
+
+       ant -p
+
+    for instructions on how to build.
+
+
+3. Changes
+----------
+
+3.1. Benchmark additions since 2006-10-MR2
+
+      avrora: AVRORA is a set of simulation and analysis tools in a
+              framework for AVR micro-controllers. The benchmark
+              exhibits a great deal of fine-grained concurrency. The
+              benchmark is courtesy of Ben Titzer (Sun Microsystems)
+              and was developed at UCLA.
+
+       batik: Batik is an SVG toolkit produced by the Apache foundation.
+              The benchmark renders a number of svg files.
+
+          h2: h2 is an in-memory database benchmark, using the
+              h2 database produced by h2database.com, and executing an
+              implementation of the TPC-C workload produced by the
+              Apache foundation for its derby project. h2 replaces
+              derby, which in turn replaced hsqldb.
+
+     sunflow: Sunflow is a raytracing rendering system for photo-realistic
+              images.
+
+      tomcat: Tomcat uses the Apache Tomcat servelet container to run
+              some sample web applications.
+
+  tradebeans: Tradebeans runs the Apache daytrader workload "directly"
+              (via EJB) within a Geronimo application server.  Daytrader
+              is derived from the IBM Trade6 benchmark.
+
+   tradesoap: Tradesoap is identical to the tradebeans workload, except
+              that client/server communications is via soap protocols
+              (and the workloads are reduced in size to compensate the
+              substantially higher overhead).
+
+              Note that tradebeans and tradesoap were intentionally
+              added as a pair to allow researchers to evaluate and
+              analyze the overheads and behavior of communicating
+              through a protocol such as SOAP.  Tradesoap's "large"
+              configuration uses exactly the same workload as
+              tradebeans' "default" configuration, and tradesoap's
+              "huge" uses exactly the same workload as tradebeans'
+              "large", allowing researchers to directly compare the
+              two systems.
+
+
+3.2. Benchmark deletions
+
+       antlr: Antlr is single threaded and highly repetitive. The
+              most recent version of jython uses antlr; so antlr
+              remains represented within the DaCapo suite.
+
+       bloat: Bloat is not as widely used as our other workloads
+              and the code exhibited some pathologies that were
+              arguably not representative or desirable in a suite that
+              was to be representative of modern Java applications.
+
+       chart: Chart was repetitive and used a framework that appears
+              not to be as widely used as most of the other DaCapo
+              benchmarks.  The Batik workload has some similarities
+              with chart (both are render vector graphics), but is
+              part of a larger heavily used framework from Apache.
+
+       derby: Derby has been replaced by h2, which runs a much
+              richer workload and uses a more widely used and higher
+              performing database engine (derby was not in any
+              previous release, but had been slated for inclusion in
+              this release).
+
+      hsqldb: Hsqldb has been replaced by h2, which runs a much
+              richer workload and uses a more widely used and higher
+              performing database engine.
+
+
+3.3. Benchmark updates
+
+All other benchmarks have been updated to reflect the latest release
+of the underlying application.
+
+
+3.4. Other Notable Changes
+
+The packaging of the DaCapo suite has been completely re-worked and
+the source code is entirely re-organized.
+
+We've changed the naming scheme for the releases.  Rather than
+"dacapo-YYYY-MM", we've moved to "dacapo-Y.M-TAG", where TAG is a
+nickname for the release.  Given the theme for this project, we're
+using musical names, and since this release is our second, we've given
+this one the nick-name "bach".  The release can therefore be referred
+to by its nickname, which rolls off the tounge a little more easily
+than our old names.  Of course we've borrowed this scheme from other
+projects (such as Ubuntu) which follow a similar pattern.
+
+The command-line arguments have be rationalized and now follow
+posix conventions.
+
+Threading has been rationalized.   Benchmarks are now characterized
+in terms of their external and internal concurrency.  (For example
+a benchmark such as eclipse is single-threaded externally, but
+internally uses a thread pool).   All benchmarks which are externally
+multi-threaded now by default run a number of threads scaled to
+match the available processors, and the number of externally defined
+threads may also be configured via the "-t" and "-k" command line
+options which specify, respectively the absolute number of external
+threads and a multiplier against the number of available processors.
+Some benchmarks are both internally and externally multithreaded,
+such as tradebeans and tradesoap, where the number of client threads
+may be specified externally, but the number of server threads is
+determined within the server, and cannot be directly controlled by
+the user.
+
+We have introduced a "huge" size for a number of benchmarks, which
+scales the workload to run for much longer and consume significant
+memory.  We have also retired "large" sizes for some benchmarks where
+"large" was not distinctly different from "default".  Thus there are
+now four sizes: "small", "default", "large", and "huge", and "large"
+and "huge" are only available for some benchmarks.  If you attempt
+to run a benchmark at an unsupported size you will get an error
+message.
+
+
+4. Known Issues
+---------------
+
+Please consult the bug tracker for a complete and up-to-date list of
+known issues (http://sourceforge.net/tracker/?group_id=172498&atid=861957).
+
+DaCapo is an open source community project. We welcome all assistance
+in addressing bugs and shortcomings in the suite.
+
+A few notable unresolved high priority issues are listed here:
+
+
+4.1 Socket use by tradebeans, tradesoap and tomcat
+
+Each of these benchmarks use sockets to communicate between their
+clients and server.  We have observed that connections are used very
+liberally (we have seen more than 64,000 connections in use when
+running tradebeans in its "huge" configuration, according to netstat).
+We believe that this phenomena can lead to spurious failures,
+particularly on tradesoap, where the benchmark fails with an error
+message that indicates a garbled bean (stock name seen when userid
+expected).  At the time of writing, we believe these issues are
+platform-sensitive and are due to the underlying systems rather than
+our particular use of them.  As with all issues, we welcome feedback
+and fixes from the community.
+
+
+4.2 Tomcat
+
+Tomcat remains less interesting than we would have liked. Performance
+results show that tomcat currently has a remarkably flat warm-up curve
+when compared to other benchmarks.
+
+
+4.3 Validation
+
+Validation continues to use summarization via a checksum, so we are
+unable to provide a diff between expected and actual output in the
+case of failure.   We hope to update this, and welcome community
+contributions.
+
+
+4.4 Support for whole-program static analysis
+
+Despite significant help from the community, we have had to drop
+support for whole-program static analysis that was available in the
+last major release.  The main reason for this is that the more
+systematic and extensive use of reflection and the enormous internal
+complexity of workloads such as tradebeans and tradesoap has made it
+very difficult to produce a straightforward mechanism that would
+facilitate such analyses.  While we regret this omission, such an
+addition should have no effect on the workloads themselves.
+Therefore, if the community is able to contribute enhancements or
+extensions to the suite that facilitate such static analysis, we
+should be able to include such a contribution in a maintenance
+release, rather than having to wait for the next major release of the
+DaCapo benchmark suite.
+
+
+5. Contributions and Acknowledgements
+-------------------------------------
+
+The generous financial support of Intel was crucial to the successful
+completion of this release.
+
+The production of the 9.12 release was jointly led by:
+
+    Steve Blackburn, Australian National University
+    Kathryn S McKinley, University of Texas at Austin
+
+The 9.12 release of the DaCapo suite was developed primarily by:
+
+     Steve Blackburn, Australian National University
+     Daniel Frampton, Australian National University
+     Robin Garner, Australian National University
+     John Zigman, Australian National University
+
+We receieved considerable assistance from a number of people,
+including:
+
+     Eric Bodden, Technische Universität Darmstadt
+     Sam Guyer, Tufts
+     Chris Kulla
+     Nick Mitchell, IBM
+     Gary Sevitsky, IBM
+     Ben Titzer, Sun Microsystems
+
+Many other people provided valuable feedback, bug fixes and advice.

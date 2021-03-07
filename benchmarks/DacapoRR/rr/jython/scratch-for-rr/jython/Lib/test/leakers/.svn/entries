@@ -1,0 +1,63 @@
+10
+
+dir
+0
+http://gforge.soe.ucsc.edu/svn/sqt/proj/JavaWorkspace/Benchmarks/DacapoRR/rr/jython/scratch-for-rr/jython/Lib/test/leakers
+http://gforge.soe.ucsc.edu/svn/sqt
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b6c514ba-65e5-0310-acaf-8a721704f0d3
+
+test_selftype.py
+file
+
+
+
+add
+
+__init__.py
+file
+
+
+
+add
+
+test_gestalt.py
+file
+
+
+
+add
+
+README.txt
+file
+
+
+
+add
+
+test_ctypes.py
+file
+
+
+
+add
+

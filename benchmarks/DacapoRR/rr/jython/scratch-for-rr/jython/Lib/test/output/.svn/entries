@@ -1,0 +1,350 @@
+10
+
+dir
+0
+http://gforge.soe.ucsc.edu/svn/sqt/proj/JavaWorkspace/Benchmarks/DacapoRR/rr/jython/scratch-for-rr/jython/Lib/test/output
+http://gforge.soe.ucsc.edu/svn/sqt
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b6c514ba-65e5-0310-acaf-8a721704f0d3
+
+test_linuxaudiodev
+file
+
+
+
+add
+
+test_popen
+file
+
+
+
+add
+
+test_pkg
+file
+
+
+
+add
+
+test_operations
+file
+
+
+
+add
+
+test_pep277
+file
+
+
+
+add
+
+test_ossaudiodev
+file
+
+
+
+add
+
+test_logging
+file
+
+
+
+add
+
+test_grammar
+file
+
+
+
+add
+
+test_tokenize
+file
+
+
+
+add
+
+test_nis
+file
+
+
+
+add
+
+test_new
+file
+
+
+
+add
+
+test_math
+file
+
+
+
+add
+
+test_winreg
+file
+
+
+
+add
+
+test_opcodes
+file
+
+
+
+add
+
+test_profile
+file
+
+
+
+add
+
+test_global
+file
+
+
+
+add
+
+test_janoninner
+file
+
+
+
+add
+
+test_jser
+file
+
+
+
+add
+
+test_frozen
+file
+
+
+
+add
+
+test_cProfile
+file
+
+
+
+add
+
+test_popen2
+file
+
+
+
+add
+
+test_types
+file
+
+
+
+add
+
+test_class
+file
+
+
+
+add
+
+test_thread
+file
+
+
+
+add
+
+test_rgbimg
+file
+
+
+
+add
+
+test_scope
+file
+
+
+
+add
+
+test_cookie
+file
+
+
+
+add
+
+test_signal
+file
+
+
+
+add
+
+xmltests
+file
+
+
+
+add
+
+test_xdrlib
+file
+
+
+
+add
+
+test_MimeWriter
+file
+
+
+
+add
+
+test_jsubclass
+file
+
+
+
+add
+
+test_mmap
+file
+
+
+
+add
+
+test_pyexpat
+file
+
+
+
+add
+
+test_jbasic
+file
+
+
+
+add
+
+test_extcall
+file
+
+
+
+add
+
+test_openpty
+file
+
+
+
+add
+
+test_cgi
+file
+
+
+
+add
+
+test_methods
+file
+
+
+
+add
+
+test_poll
+file
+
+
+
+add
+
+test_httplib
+file
+
+
+
+add
+
+test_threadedtempfile
+file
+
+
+
+add
+
+test_regex
+file
+
+
+
+add
+
+test_pty
+file
+
+
+
+add
+
+test_javalist
+file
+
+
+
+add
+
+test_types_pyc
+file
+
+
+
+add
+

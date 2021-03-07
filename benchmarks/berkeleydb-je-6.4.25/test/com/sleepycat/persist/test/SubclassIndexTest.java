@@ -1,0 +1,294 @@
+/*-
+ *
+ *  This file is part of Oracle Berkeley DB Java Edition
+ *  Copyright (C) 2002, 2015 Oracle and/or its affiliates.  All rights reserved.
+ *
+ *  Oracle Berkeley DB Java Edition is free software: you can redistribute it
+ *  and/or modify it under the terms of the GNU Affero General Public License
+ *  as published by the Free Software Foundation, version 3.
+ *
+ *  Oracle Berkeley DB Java Edition is distributed in the hope that it will be
+ *  useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License in
+ *  the LICENSE file along with Oracle Berkeley DB Java Edition.  If not, see
+ *  <http://www.gnu.org/licenses/>.
+ *
+ *  An active Oracle commercial licensing agreement for this product
+ *  supercedes this license.
+ *
+ *  For more information please contact:
+ *
+ *  Vice President Legal, Development
+ *  Oracle America, Inc.
+ *  5OP-10
+ *  500 Oracle Parkway
+ *  Redwood Shores, CA 94065
+ *
+ *  or
+ *
+ *  berkeleydb-info_us@oracle.com
+ *
+ *  [This line intentionally left blank.]
+ *  [This line intentionally left blank.]
+ *  [This line intentionally left blank.]
+ *  [This line intentionally left blank.]
+ *  [This line intentionally left blank.]
+ *  [This line intentionally left blank.]
+ *  EOF
+ *
+ */
+
+package com.sleepycat.persist.test;
+
+import static com.sleepycat.persist.model.Relationship.MANY_TO_ONE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.sleepycat.je.DatabaseException;
+import com.sleepycat.je.Environment;
+import com.sleepycat.je.EnvironmentConfig;
+import com.sleepycat.je.Transaction;
+import com.sleepycat.je.util.DualTestCase;
+import com.sleepycat.persist.EntityCursor;
+import com.sleepycat.persist.EntityStore;
+import com.sleepycat.persist.PrimaryIndex;
+import com.sleepycat.persist.SecondaryIndex;
+import com.sleepycat.persist.StoreConfig;
+import com.sleepycat.persist.model.AnnotationModel;
+import com.sleepycat.persist.model.Entity;
+import com.sleepycat.persist.model.EntityModel;
+import com.sleepycat.persist.model.Persistent;
+import com.sleepycat.persist.model.PrimaryKey;
+import com.sleepycat.persist.model.SecondaryKey;
+import com.sleepycat.util.test.SharedTestUtils;
+import com.sleepycat.util.test.TestEnv;
+
+public class SubclassIndexTest extends DualTestCase {
+
+    private File envHome;
+    private Environment env;
+    private EntityStore store;
+
+    @Before
+    public void setUp()
+        throws Exception {
+
+        envHome = SharedTestUtils.getTestDir();
+        super.setUp();
+    }
+
+    @After
+    public void tearDown()
+        throws Exception {
+
+        super.tearDown();
+        envHome = null;
+        env = null;
+    }
+
+    private void open()
+        throws DatabaseException {
+
+        EnvironmentConfig envConfig = TestEnv.TXN.getConfig();
+        envConfig.setAllowCreate(true);
+        env = create(envHome, envConfig);
+
+        EntityModel model = new AnnotationModel();
+        model.registerClass(Manager.class);
+        model.registerClass(SalariedManager.class);
+
+        StoreConfig storeConfig = new StoreConfig();
+        storeConfig.setModel(model);
+        storeConfig.setAllowCreate(true);
+        storeConfig.setTransactional(true);
+        store = new EntityStore(env, "foo", storeConfig);
+    }
+
+    private void close()
+        throws DatabaseException {
+
+        store.close();
+        store = null;
+        close(env);
+        env = null;
+    }
+
+    @Test
+    public void testSubclassIndex()
+        throws DatabaseException {
+
+        open();
+
+        PrimaryIndex<String, Employee> employeesById =
+            store.getPrimaryIndex(String.class, Employee.class);
+
+        employeesById.put(new Employee("1"));
+        employeesById.put(new Manager("2", "a"));
+        employeesById.put(new Manager("3", "a"));
+        employeesById.put(new Manager("4", "b"));
+
+        Employee e;
+        Manager m;
+
+        e = employeesById.get("1");
+        assertNotNull(e);
+        assertTrue(!(e instanceof Manager));
+
+        /* Ensure DB exists BEFORE calling getSubclassIndex. [#15247] */
+        PersistTestUtils.assertDbExists
+            (true, env, "foo", Employee.class.getName(), "dept");
+
+        /* Normal use: Subclass index for a key in the subclass. */
+        SecondaryIndex<String, String, Manager> managersByDept =
+            store.getSubclassIndex
+                (employeesById, Manager.class, String.class, "dept");
+
+        m = managersByDept.get("a");
+        assertNotNull(m);
+        assertEquals("2", m.id);
+
+        m = managersByDept.get("b");
+        assertNotNull(m);
+        assertEquals("4", m.id);
+
+        Transaction txn = env.beginTransaction(null, null);
+        EntityCursor<Manager> managers = managersByDept.entities(txn, null);
+        try {
+            m = managers.next();
+            assertNotNull(m);
+            assertEquals("2", m.id);
+            m = managers.next();
+            assertNotNull(m);
+            assertEquals("3", m.id);
+            m = managers.next();
+            assertNotNull(m);
+            assertEquals("4", m.id);
+            m = managers.next();
+            assertNull(m);
+        } finally {
+            managers.close();
+            txn.commit();
+        }
+
+        /* Getting a subclass index for the entity class is also allowed. */
+        store.getSubclassIndex
+            (employeesById, Employee.class, String.class, "other");
+
+        /* Getting a subclass index for a base class key is not allowed. */
+        try {
+            store.getSubclassIndex
+                (employeesById, Manager.class, String.class, "other");
+            fail();
+        } catch (IllegalArgumentException expected) {
+        }
+
+        close();
+    }
+
+    /**
+     * Previously this tested that a secondary key database was added only
+     * AFTER storing the first instance of the subclass that defines the key.
+     * Now that we require registering the subclass up front, the database is
+     * created up front also.  So this test is somewhat less useful, but still
+     * nice to have around.  [#16399]
+     */
+    @Test
+    public void testAddSecKey()
+        throws DatabaseException {
+
+        open();
+        PrimaryIndex<String, Employee> employeesById =
+            store.getPrimaryIndex(String.class, Employee.class);
+        employeesById.put(new Employee("1"));
+        assertTrue(hasEntityKey("dept"));
+        close();
+
+        open();
+        employeesById = store.getPrimaryIndex(String.class, Employee.class);
+        assertTrue(hasEntityKey("dept"));
+        employeesById.put(new Manager("2", "a"));
+        assertTrue(hasEntityKey("dept"));
+        close();
+
+        open();
+        assertTrue(hasEntityKey("dept"));
+        close();
+        
+        open();
+        employeesById = store.getPrimaryIndex(String.class, Employee.class);
+        assertTrue(hasEntityKey("salary"));
+        employeesById.put(new SalariedManager("3", "a", "111"));
+        assertTrue(hasEntityKey("salary"));
+        close();
+
+        open();
+        assertTrue(hasEntityKey("dept"));
+        assertTrue(hasEntityKey("salary"));
+        close();
+    }
+
+    private boolean hasEntityKey(String keyName) {
+        return store.getModel().
+               getRawType(Employee.class.getName()).
+               getEntityMetadata().
+               getSecondaryKeys().
+               keySet().
+               contains(keyName);
+    }
+
+    @Entity
+    private static class Employee {
+
+        @PrimaryKey
+        String id;
+
+        @SecondaryKey(relate=MANY_TO_ONE)
+        String other;
+
+        Employee(String id) {
+            this.id = id;
+        }
+
+        private Employee() {}
+    }
+
+    @Persistent
+    private static class Manager extends Employee {
+
+        @SecondaryKey(relate=MANY_TO_ONE)
+        String dept;
+
+        Manager(String id, String dept) {
+            super(id);
+            this.dept = dept;
+        }
+
+        private Manager() {}
+    }
+
+    @Persistent
+    private static class SalariedManager extends Manager {
+
+        @SecondaryKey(relate=MANY_TO_ONE)
+        String salary;
+
+        SalariedManager(String id, String dept, String salary) {
+            super(id, dept);
+            this.salary = salary;
+        }
+
+        private SalariedManager() {}
+    }
+}

@@ -1,0 +1,4 @@
+
+CLASSPATH=../../jar/pmd-4.2.5.jar:../../jar/jaxen-1.1.1.jar:../../jar/asm-3.1.jar:../../jar/junit-3.8.1.jar:../../jar/xercesImpl.jar:../../jar/xml-apis.jar
+
+javac  -target 1.6 -source 1.6 -classpath $CLASSPATH Main.java

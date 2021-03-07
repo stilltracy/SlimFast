@@ -1,0 +1,4 @@
+#!/bin/bash
+
+CLASSPATH=../../jar/batik-all.jar:../../jar/xml-apis-ext.jar:../../jar/xml-apis.jar:../../jar/crimson-1.1.3.jar:../../jar/xerces_2_5_0.jar:../../jar/xalan-2.6.0.jar
+java -classpath .:${CLASSPATH} Main

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "PREP"
+rm -rf scratch
+mkdir scratch
+cp ../../dat/avrora.zip scratch
+cd scratch
+unzip avrora.zip
+cd ..
+echo "PREP DONE"
+
+i=0
+args=""
+t=""
+for arg in "$@"
+do
+        if [ "$i" = "0" ]
+        then
+                t="$arg"
+        else
+                args="$args $arg"
+        fi
+        i=`expr $i + 1`
+done
+
+echo $t
+
+echo "RR RUN"
+rrrun -classpath=.:../../jar/avrora-cvs-20091224.jar $args Main

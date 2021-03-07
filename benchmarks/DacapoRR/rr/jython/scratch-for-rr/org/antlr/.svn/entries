@@ -1,0 +1,105 @@
+10
+
+dir
+0
+http://gforge.soe.ucsc.edu/svn/sqt/proj/JavaWorkspace/Benchmarks/DacapoRR/rr/jython/scratch-for-rr/org/antlr
+http://gforge.soe.ucsc.edu/svn/sqt
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b6c514ba-65e5-0310-acaf-8a721704f0d3
+
+Tool.class
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+stringtemplate
+dir
+
+
+
+add
+
+analysis
+dir
+
+
+
+add
+
+runtime
+dir
+
+
+
+add
+
+codegen
+dir
+
+
+
+add
+
+grammar
+dir
+
+
+
+add
+
+gunit
+dir
+
+
+
+add
+
+antlr.properties
+file
+
+
+
+add
+
+misc
+dir
+
+
+
+add
+
+tool
+dir
+
+
+
+add
+
